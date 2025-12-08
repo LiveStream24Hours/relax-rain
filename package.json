@@ -1,0 +1,11 @@
+{
+  "name": "livestreaming24hours",
+  "version": "1.0.0",
+  "main": "livestream.js",
+  "scripts": {
+    "start": "node livestream.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
