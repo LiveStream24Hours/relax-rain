@@ -71,7 +71,7 @@ function startStream() {
     return;
   }
 
-  const args = [
+const args = [
   "-stream_loop", "-1",
   "-re", "-i", videoPath,
   "-stream_loop", "-1",
@@ -82,11 +82,17 @@ function startStream() {
   // VIDEO
   "-c:v", "libx264",
   "-preset", "veryfast",
-  "-b:v", "6000k",        // bitrate 6 Mbps
+  "-b:v", "6000k",
   "-maxrate", "6000k",
   "-bufsize", "12000k",
   "-pix_fmt", "yuv420p",
-  "-r", "30",             // 30 FPS
+  "-r", "30",
+
+  // ⬇⬇ FIX KEYFRAME INTERVAL (2 DETIK UNTUK 30 FPS) ⬇⬇
+  "-g", "60",            // GOP size = 60 frame
+  "-keyint_min", "60",   // minimal keyframe interval = 60 frame
+  "-sc_threshold", "0",  // disable scene-change keyframes
+
   "-vf", "scale=1920:1080:force_original_aspect_ratio=decrease",
 
   // AUDIO
@@ -97,6 +103,7 @@ function startStream() {
   "-f", "flv",
   streamUrl,
 ];
+
 
 
   try {
